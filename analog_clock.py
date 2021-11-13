@@ -1,7 +1,6 @@
 import tkinter
 import math
 import time
-from datetime import datetime
 
 canvas_size = 700
 canvas = tkinter.Canvas(bg="#091921", width=canvas_size, height=canvas_size)
@@ -29,22 +28,20 @@ def draw(elements):
     for element in elements:
         canvas.delete(element)
 
-    tm = datetime.utcnow()
-    epoch = time.mktime(tm.timetuple())
-    tm += datetime.fromtimestamp(epoch) - datetime.utcfromtimestamp(epoch)
-
-    digital_time = tm.strftime('%d.%m.%Y %H:%M:%S')
+    tm = time.localtime()
+    
+    digital_time = time.strftime('%d.%m.%Y %H:%M:%S', tm)
     elements[0] = canvas.create_text(canvas_size / 2, 40, text=digital_time, fill="#804d33",
                                      font=("PT Sans", 25, "bold"))
 
-    x, y = calculate(tm.hour * 30 + tm.minute / 2 - 90, radius - 110)
+    x, y = calculate(tm[3] * 30 + tm[4] / 2 - 90, radius - 110)
     elements[1] = line(x, y, 12, "#591b30")
 
-    x, y = calculate(tm.minute * 6 + tm.second / 10 - 90, radius - 60)
+    x, y = calculate(tm[4] * 6 + tm[5] / 10 - 90, radius - 60)
     elements[2] = line(x, y, 7, "#1b594f")
 
-    x1, y1 = calculate(tm.second * 6 + 90, radius - 200)
-    x2, y2 = calculate(tm.second * 6 - 90, radius - 40)
+    x1, y1 = calculate(tm[5] * 6 + 90, radius - 200)
+    x2, y2 = calculate(tm[5] * 6 - 90, radius - 40)
     elements[3] = canvas.create_line(x1, y1, x2, y2, width=4, fill="#1b3f59", capstyle="round")
 
     elements[4] = canvas.create_oval(canvas_size / 2 - 10, canvas_size / 2 - 10,
