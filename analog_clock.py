@@ -10,7 +10,7 @@ canvas.pack()
 radius = 250
 angle = 270
 
-elements = [0 for _ in range(6)]
+elements = [0 for _ in range(5)]
 
 
 def calculate(_angle, _radius):
@@ -43,13 +43,11 @@ def draw(elements):
     x, y = calculate(tm.minute * 6 + tm.second / 10 - 90, radius - 60)
     elements[2] = line(x, y, 7, "#1b594f")
 
-    x, y = calculate(tm.second * 6 + tm.microsecond * 0.000006 - 90, radius - 35)
-    elements[3] = line(x, y, 4, "#1b3f59")
+    x1, y1 = calculate(tm.second * 6 + 90, radius - 200)
+    x2, y2 = calculate(tm.second * 6 - 90, radius - 40)
+    elements[3] = canvas.create_line(x1, y1, x2, y2, width=4, fill="#1b3f59", capstyle="round")
 
-    x, y = calculate(tm.second * 6 + tm.microsecond * 0.000006 + 90, radius - 210)
-    elements[4] = line(x, y, 4, "#1b3f59")
-
-    elements[5] = canvas.create_oval(canvas_size / 2 - 10, canvas_size / 2 - 10,
+    elements[4] = canvas.create_oval(canvas_size / 2 - 10, canvas_size / 2 - 10,
                                      canvas_size / 2 + 10, canvas_size / 2 + 10, fill="#29264d",
                                      width=0)
 
