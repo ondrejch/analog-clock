@@ -16,6 +16,11 @@ def calculate(_angle, _radius):
     return x, y
 
 
+def line(_x, _y, _width, _color):
+    return canvas.create_line(width / 2, height / 2, _x, _y, width=_width, fill=_color,
+                              capstyle="round")
+
+
 def draw():
     global digits, second, minute, hour
 
@@ -25,14 +30,14 @@ def draw():
     digital_time = f"{tm[2]:02}.{tm[1]:02}.{tm[0]:04} {tm[3]:02}:{tm[4]:02}:{tm[5]:02}"
     digits = canvas.create_text(300, 25, text=digital_time, fill="red", font="Arial 30")
 
-    x, y = calculate(tm[5] * 6 - 90, radius - 30)
-    second = canvas.create_line(width / 2, height / 2, x, y, fill="red", width=2)
+    x, y = calculate(tm[3] * 30 - 90, radius - 100)
+    hour = line(x, y, 4, "white")
 
     x, y = calculate(tm[4] * 6 - 90, radius - 50)
-    minute = canvas.create_line(width / 2, height / 2, x, y, fill="green", width=3)
+    minute = line(x, y, 3, "green")
 
-    x, y = calculate(tm[3] * 30 - 90, radius - 100)
-    hour = canvas.create_line(width / 2, height / 2, x, y, fill="white", width=4)
+    x, y = calculate(tm[5] * 6 - 90, radius - 30)
+    second = line(x, y, 2, "red")
 
 
 for i in range(12):
