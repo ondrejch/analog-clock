@@ -31,21 +31,21 @@ def draw(elements):
     tm = time.localtime()
 
     digital_time = time.strftime('%d.%m.%Y %H:%M:%S', tm)
-    elements[0] = canvas.create_text(canvas_size / 2, 40, text=digital_time, fill="#804d33",
+    elements[0] = canvas.create_text(canvas_size / 2, 40, text=digital_time, fill="#b36b47",
                                      font=("PT Sans", 25, "bold"))
 
     x, y = calculate(tm[3] * 30 + tm[4] / 2 - 90, radius - 90)
-    elements[1] = line(x, y, 12, "#591b30")
+    elements[1] = line(x, y, 12, "#8c2a4b")
 
     x, y = calculate(tm[4] * 6 + tm[5] / 10 - 90, radius - 40)
-    elements[2] = line(x, y, 7, "#1b594f")
+    elements[2] = line(x, y, 7, "#2a8c7c")
 
     x1, y1 = calculate(tm[5] * 6 + 90, radius - 200)
     x2, y2 = calculate(tm[5] * 6 - 90, radius - 30)
-    elements[3] = canvas.create_line(x1, y1, x2, y2, width=4, fill="#1b3f59", capstyle="round")
+    elements[3] = canvas.create_line(x1, y1, x2, y2, width=4, fill="#2a638c", capstyle="round")
 
     elements[4] = canvas.create_oval(canvas_size / 2 - 10, canvas_size / 2 - 10,
-                                     canvas_size / 2 + 10, canvas_size / 2 + 10, fill="#29264d",
+                                     canvas_size / 2 + 10, canvas_size / 2 + 10, fill="#405b80",
                                      width=0)
 
     return elements
@@ -53,7 +53,7 @@ def draw(elements):
 
 for i in range(12):
     x, y = calculate(angle + 30, radius - 45)
-    canvas.create_text(x, y, text=i + 1, fill="#336680", font=("PT Sans", 35, "bold"))
+    canvas.create_text(x, y, text=i + 1, fill="#478fb3", font=("PT Sans", 35, "bold"))
 
     angle += 360 / 12
 
@@ -66,7 +66,7 @@ for i in range(60):
         width = 3
 
     x2, y2 = calculate(angle + 30, radius + 10)
-    canvas.create_line(x1, y1, x2, y2, width=width, fill="#1f2b4d", capstyle="round")
+    canvas.create_line(x1, y1, x2, y2, width=width, fill="#334780", capstyle="round")
 
     angle += 360 / 60
 
