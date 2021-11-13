@@ -31,8 +31,7 @@ def draw():
 
     tm = time.localtime()
 
-    digital_time = str(tm[2]) + '.' + str(tm[1]) + '.' + str(tm[0]) + ' ' + str(tm[3]) + ':' + str(
-        tm[4]) + ':' + str(tm[5])
+    digital_time = f"{tm[2]:02}.{tm[1]:02}.{tm[0]:04} {tm[3]:02}:{tm[4]:02}:{tm[5]:02}"
 
     digits = canvas.create_text(300, 25, text=digital_time, fill='red', font='Arial 30')
     angle = 360 / 60 * tm[5] + 270
