@@ -4,7 +4,7 @@ import time
 from datetime import datetime
 
 canvas_size = 700
-canvas = tkinter.Canvas(bg="blue", width=canvas_size, height=canvas_size)
+canvas = tkinter.Canvas(bg="#091921", width=canvas_size, height=canvas_size)
 canvas.pack()
 
 radius = 250
@@ -34,32 +34,33 @@ def draw():
     tm += datetime.fromtimestamp(epoch) - datetime.utcfromtimestamp(epoch)
 
     digital_time = tm.strftime('%d.%m.%Y %H:%M:%S')
-    digits = canvas.create_text(canvas_size / 2, 25, text=digital_time, fill="red", font="Arial 30")
+    digits = canvas.create_text(canvas_size / 2, 40, text=digital_time, fill="#5a5f72",
+                                font=("JetBrains Mono", 25, "bold"))
 
-    x, y = calculate(tm.hour * 30 + tm.minute / 2 - 90, radius - 100)
-    hour = line(x, y, 4, "white")
+    x, y = calculate(tm.hour * 30 + tm.minute / 2 - 90, radius - 110)
+    hour = line(x, y, 12, "#53051e")
 
-    x, y = calculate(tm.minute * 6 + tm.second / 10 - 90, radius - 50)
-    minute = line(x, y, 3, "green")
+    x, y = calculate(tm.minute * 6 + tm.second / 10 - 90, radius - 60)
+    minute = line(x, y, 7, "#777777")
 
-    x, y = calculate(tm.second * 6 + tm.microsecond * 0.000006 - 90, radius - 30)
-    second_1 = line(x, y, 2, "red")
+    x, y = calculate(tm.second * 6 + tm.microsecond * 0.000006 - 90, radius - 35)
+    second_1 = line(x, y, 4, "#0b5384")
 
     x, y = calculate(tm.second * 6 + tm.microsecond * 0.000006 + 90, radius - 210)
-    second_2 = line(x, y, 2, "red")
+    second_2 = line(x, y, 4, "#0b5384")
 
-    circle = canvas.create_oval(canvas_size / 2 - 7, canvas_size / 2 - 7, canvas_size / 2 + 7,
-                                canvas_size / 2 + 7, fill="orange", width=0)
+    circle = canvas.create_oval(canvas_size / 2 - 10, canvas_size / 2 - 10, canvas_size / 2 + 10,
+                                canvas_size / 2 + 10, fill="#002700", width=0)
 
 
 for i in range(12):
     x, y = calculate(angle, radius)
-
-    canvas.create_oval(x - 20, y - 20, x + 20, y + 20, fill="yellow", width=2)
+    canvas.create_oval(x - 20, y - 20, x + 20, y + 20, fill="#181d2f", outline="#131725", width=3)
 
     number = i
     if number == 0: number = 12
-    canvas.create_text(x, y, text=number, fill="red", font="Arial 20")
+    canvas.create_text(x, y, text=number, fill="#5a5f72", font=("JetBrains Mono", 17, "bold"))
+
     angle += 360 / 12
 
 while True:
