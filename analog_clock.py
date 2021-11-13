@@ -6,7 +6,7 @@ canvas.pack()
 
 radius = 250
 angle = 270
-digits = second = minute = hour = 0
+digits = hour = minute = second_1 = second_2 = circle = 0
 
 
 def calculate(_angle, _radius):
@@ -22,9 +22,9 @@ def line(_x, _y, _width, _color):
 
 
 def draw():
-    global digits, second, minute, hour
+    global digits, hour, minute, second_1, second_2, circle
 
-    canvas.delete(digits, second, minute, hour)
+    canvas.delete(digits, hour, minute, second_1, second_2, circle)
     tm = time.localtime()
 
     digital_time = f"{tm[2]:02}.{tm[1]:02}.{tm[0]:04} {tm[3]:02}:{tm[4]:02}:{tm[5]:02}"
@@ -37,7 +37,13 @@ def draw():
     minute = line(x, y, 3, "green")
 
     x, y = calculate(tm[5] * 6 - 90, radius - 30)
-    second = line(x, y, 2, "red")
+    second_1 = line(x, y, 2, "red")
+
+    x, y = calculate(tm[5] * 6 + 90, radius - 210)
+    second_2 = line(x, y, 2, "red")
+
+    circle = canvas.create_oval(width / 2 - 7, height / 2 - 7, width / 2 + 7, height / 2 + 7,
+                                fill="orange", width=0)
 
 
 for i in range(12):
