@@ -6,7 +6,7 @@ canvas.pack()
 
 radius = 250
 angle = 270
-circle = digits = 0
+digits = second = minute = hour = 0
 
 
 def calculate(_angle, _radius):
@@ -17,20 +17,22 @@ def calculate(_angle, _radius):
 
 
 def draw():
-    global circle, digits
+    global digits, second, minute, hour
 
-    canvas.delete(circle, digits)
-
+    canvas.delete(digits, second, minute, hour)
     tm = time.localtime()
 
     digital_time = f"{tm[2]:02}.{tm[1]:02}.{tm[0]:04} {tm[3]:02}:{tm[4]:02}:{tm[5]:02}"
-
     digits = canvas.create_text(300, 25, text=digital_time, fill="red", font="Arial 30")
-    angle = 360 / 60 * tm[5] + 270
 
-    x, y = calculate(angle, radius)
+    x, y = calculate(tm[5] * 6 - 90, radius - 30)
+    second = canvas.create_line(width / 2, height / 2, x, y, fill="red", width=2)
 
-    circle = canvas.create_oval(x - 10, y - 10, x + 10, y + 10, fill="red", width=2)
+    x, y = calculate(tm[4] * 6 - 90, radius - 50)
+    minute = canvas.create_line(width / 2, height / 2, x, y, fill="green", width=3)
+
+    x, y = calculate(tm[3] * 30 - 90, radius - 100)
+    hour = canvas.create_line(width / 2, height / 2, x, y, fill="white", width=4)
 
 
 for i in range(12):
