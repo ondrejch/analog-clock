@@ -35,7 +35,7 @@ def draw():
 
     digital_time = tm.strftime('%d.%m.%Y %H:%M:%S')
     digits = canvas.create_text(canvas_size / 2, 40, text=digital_time, fill="#5a5f72",
-                                font=("JetBrains Mono", 25, "bold"))
+                                font=("PT Sans", 25, "bold"))
 
     x, y = calculate(tm.hour * 30 + tm.minute / 2 - 90, radius - 110)
     hour = line(x, y, 12, "#53051e")
@@ -54,12 +54,13 @@ def draw():
 
 
 for i in range(12):
-    x, y = calculate(angle, radius)
-    canvas.create_oval(x - 20, y - 20, x + 20, y + 20, fill="#181d2f", outline="#131725", width=3)
-
-    number = i
-    if number == 0: number = 12
-    canvas.create_text(x, y, text=number, fill="#5a5f72", font=("JetBrains Mono", 17, "bold"))
+    if (i + 1) % 3 == 0:
+        x, y = calculate(angle + 30, radius)
+        canvas.create_text(x, y, text=i + 1, fill="#5a5f72", font=("PT Sans", 25, "bold"))
+    else:
+        x1, y1 = calculate(angle + 30, radius - 15)
+        x2, y2 = calculate(angle + 30, radius + 15)
+        canvas.create_line(x1, y1, x2, y2, width=5, fill="#1f263d", capstyle="round")
 
     angle += 360 / 12
 
