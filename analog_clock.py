@@ -9,7 +9,8 @@ canvas.pack()
 
 radius = 250
 angle = 270
-digits = hour = minute = second_1 = second_2 = circle = 0
+
+elements = [0 for _ in range(6)]
 
 
 def calculate(_angle, _radius):
@@ -24,33 +25,35 @@ def line(_x, _y, _width, _color):
                               capstyle="round")
 
 
-def draw():
-    global digits, hour, minute, second_1, second_2, circle
-
-    canvas.delete(digits, hour, minute, second_1, second_2, circle)
+def draw(elements):
+    for element in elements:
+        canvas.delete(element)
 
     tm = datetime.utcnow()
     epoch = time.mktime(tm.timetuple())
     tm += datetime.fromtimestamp(epoch) - datetime.utcfromtimestamp(epoch)
 
     digital_time = tm.strftime('%d.%m.%Y %H:%M:%S')
-    digits = canvas.create_text(canvas_size / 2, 40, text=digital_time, fill="#5a5f72",
-                                font=("PT Sans", 25, "bold"))
+    elements[0] = canvas.create_text(canvas_size / 2, 40, text=digital_time, fill="#5a5f72",
+                                     font=("PT Sans", 25, "bold"))
 
     x, y = calculate(tm.hour * 30 + tm.minute / 2 - 90, radius - 110)
-    hour = line(x, y, 12, "#53051e")
+    elements[1] = line(x, y, 12, "#53051e")
 
     x, y = calculate(tm.minute * 6 + tm.second / 10 - 90, radius - 60)
-    minute = line(x, y, 7, "#777777")
+    elements[2] = line(x, y, 7, "#777777")
 
     x, y = calculate(tm.second * 6 + tm.microsecond * 0.000006 - 90, radius - 35)
-    second_1 = line(x, y, 4, "#0b5384")
+    elements[3] = line(x, y, 4, "#0b5384")
 
     x, y = calculate(tm.second * 6 + tm.microsecond * 0.000006 + 90, radius - 210)
-    second_2 = line(x, y, 4, "#0b5384")
+    elements[4] = line(x, y, 4, "#0b5384")
 
-    circle = canvas.create_oval(canvas_size / 2 - 10, canvas_size / 2 - 10, canvas_size / 2 + 10,
-                                canvas_size / 2 + 10, fill="#002700", width=0)
+    elements[5] = canvas.create_oval(canvas_size / 2 - 10, canvas_size / 2 - 10,
+                                     canvas_size / 2 + 10, canvas_size / 2 + 10, fill="#002700",
+                                     width=0)
+
+    return elements
 
 
 for i in range(12):
@@ -65,5 +68,5 @@ for i in range(12):
     angle += 360 / 12
 
 while True:
-    draw()
+    elements = draw(elements)
     canvas.update()
