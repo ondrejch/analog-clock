@@ -1,4 +1,7 @@
-import tkinter, math, time
+import tkinter
+import math
+import time
+from datetime import datetime
 
 width, height = 600, 700
 canvas = tkinter.Canvas(bg="blue", width=width, height=height)
@@ -25,21 +28,24 @@ def draw():
     global digits, hour, minute, second_1, second_2, circle
 
     canvas.delete(digits, hour, minute, second_1, second_2, circle)
-    tm = time.localtime()
 
-    digital_time = f"{tm[2]:02}.{tm[1]:02}.{tm[0]:04} {tm[3]:02}:{tm[4]:02}:{tm[5]:02}"
+    tm = datetime.utcnow()
+    epoch = time.mktime(tm.timetuple())
+    tm += datetime.fromtimestamp(epoch) - datetime.utcfromtimestamp(epoch)
+
+    digital_time = tm.strftime('%d.%m.%Y %H:%M:%S')
     digits = canvas.create_text(300, 25, text=digital_time, fill="red", font="Arial 30")
 
-    x, y = calculate(tm[3] * 30 - 90, radius - 100)
+    x, y = calculate(tm.hour * 30 + tm.minute / 2 - 90, radius - 100)
     hour = line(x, y, 4, "white")
 
-    x, y = calculate(tm[4] * 6 - 90, radius - 50)
+    x, y = calculate(tm.minute * 6 + tm.second / 10 - 90, radius - 50)
     minute = line(x, y, 3, "green")
 
-    x, y = calculate(tm[5] * 6 - 90, radius - 30)
+    x, y = calculate(tm.second * 6 + tm.microsecond * 0.000006 - 90, radius - 30)
     second_1 = line(x, y, 2, "red")
 
-    x, y = calculate(tm[5] * 6 + 90, radius - 210)
+    x, y = calculate(tm.second * 6 + tm.microsecond * 0.000006 + 90, radius - 210)
     second_2 = line(x, y, 2, "red")
 
     circle = canvas.create_oval(width / 2 - 7, height / 2 - 7, width / 2 + 7, height / 2 + 7,
