@@ -3,8 +3,8 @@ import math
 import time
 from datetime import datetime
 
-width, height = 600, 700
-canvas = tkinter.Canvas(bg="blue", width=width, height=height)
+canvas_size = 700
+canvas = tkinter.Canvas(bg="blue", width=canvas_size, height=canvas_size)
 canvas.pack()
 
 radius = 250
@@ -13,14 +13,14 @@ digits = hour = minute = second_1 = second_2 = circle = 0
 
 
 def calculate(_angle, _radius):
-    x = math.cos(math.radians(_angle)) * _radius + width / 2
-    y = math.sin(math.radians(_angle)) * _radius + height / 2
+    x = math.cos(math.radians(_angle)) * _radius + canvas_size / 2
+    y = math.sin(math.radians(_angle)) * _radius + canvas_size / 2
 
     return x, y
 
 
 def line(_x, _y, _width, _color):
-    return canvas.create_line(width / 2, height / 2, _x, _y, width=_width, fill=_color,
+    return canvas.create_line(canvas_size / 2, canvas_size / 2, _x, _y, width=_width, fill=_color,
                               capstyle="round")
 
 
@@ -34,7 +34,7 @@ def draw():
     tm += datetime.fromtimestamp(epoch) - datetime.utcfromtimestamp(epoch)
 
     digital_time = tm.strftime('%d.%m.%Y %H:%M:%S')
-    digits = canvas.create_text(300, 25, text=digital_time, fill="red", font="Arial 30")
+    digits = canvas.create_text(canvas_size / 2, 25, text=digital_time, fill="red", font="Arial 30")
 
     x, y = calculate(tm.hour * 30 + tm.minute / 2 - 90, radius - 100)
     hour = line(x, y, 4, "white")
@@ -48,8 +48,8 @@ def draw():
     x, y = calculate(tm.second * 6 + tm.microsecond * 0.000006 + 90, radius - 210)
     second_2 = line(x, y, 2, "red")
 
-    circle = canvas.create_oval(width / 2 - 7, height / 2 - 7, width / 2 + 7, height / 2 + 7,
-                                fill="orange", width=0)
+    circle = canvas.create_oval(canvas_size / 2 - 7, canvas_size / 2 - 7, canvas_size / 2 + 7,
+                                canvas_size / 2 + 7, fill="orange", width=0)
 
 
 for i in range(12):
