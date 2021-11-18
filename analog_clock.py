@@ -30,20 +30,25 @@ def draw(elements):
 
     tm = time.localtime()
 
+    # Digital time
     digital_time = time.strftime('%d.%m.%Y %H:%M:%S', tm)
     elements[0] = canvas.create_text(canvas_size / 2, 40, text=digital_time, fill="#b36b47",
                                      font=("PT Sans", 25, "bold"))
 
+    # Hour hand
     x, y = calculate(tm[3] * 30 + tm[4] / 2 - 90, radius - 90)
     elements[1] = line(x, y, 12, "#8c2a4b")
 
+    # Minute hand
     x, y = calculate(tm[4] * 6 + tm[5] / 10 - 90, radius - 40)
     elements[2] = line(x, y, 7, "#2a8c7c")
 
+    # Second hand
     x1, y1 = calculate(tm[5] * 6 + 90, radius - 200)
     x2, y2 = calculate(tm[5] * 6 - 90, radius - 30)
     elements[3] = canvas.create_line(x1, y1, x2, y2, width=4, fill="#2a638c", capstyle="round")
 
+    # Small circle in center
     elements[4] = canvas.create_oval(canvas_size / 2 - 10, canvas_size / 2 - 10,
                                      canvas_size / 2 + 10, canvas_size / 2 + 10, fill="#405b80",
                                      width=0)
