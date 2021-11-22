@@ -43,16 +43,16 @@ def draw(elements):
     elements[0] = text(canvas_size / 2, canvas_size / 2 + 80, digital_time, "#b36b47")
 
     # Hour hand
-    x, y = calculate(tm[3] * 30 + tm[4] / 2 - 90, radius - 90)
+    x, y = calculate((360 / 12) * tm[3] + (360 / 12 / 60) * tm[4] - 90, radius - 90)
     elements[1] = line_from_center(x, y, 12, "#8c2a4b")
 
     # Minute hand
-    x, y = calculate(tm[4] * 6 + tm[5] / 10 - 90, radius - 40)
+    x, y = calculate((360 / 60) * tm[4] + (360 / 60 / 60) * tm[5] - 90, radius - 40)
     elements[2] = line_from_center(x, y, 7, "#2a8c7c")
 
     # Second hand
-    x1, y1 = calculate(tm[5] * 6 + 90, radius - 200)
-    x2, y2 = calculate(tm[5] * 6 - 90, radius - 30)
+    x1, y1 = calculate((360 / 60) * tm[5] + 90, radius - 200)
+    x2, y2 = calculate((360 / 60) * tm[5] - 90, radius - 30)
     elements[3] = line(x1, y1, x2, y2, 4, "#2a638c")
 
     # Small circle in center
