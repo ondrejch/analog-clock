@@ -16,3 +16,8 @@ To start the app, download or clone this repository, and in the folder you downl
 ```
 $ python analog_clock.py
 ```
+
+## Code
+Forked from https://github.com/BelKed/analog-clock 
+Added tenth of seconds and wait timer.
+
