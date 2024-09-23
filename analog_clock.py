@@ -1,3 +1,5 @@
+#!/bin/env python3
+
 import datetime
 import math
 import time
@@ -84,4 +86,4 @@ for i in range(60):
 while True:
     draw()
     canvas.update()
-    time.sleep(0.02)
+    time.sleep(0.025)
