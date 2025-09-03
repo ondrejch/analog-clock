@@ -32,6 +32,11 @@ def text(_x, _y, _text, _color):
 
 
 def draw():
+    """Draws a clock with dynamic elements on a canvas.
+    Parameters:
+        None
+    Returns:
+        - list: A list of canvas elements representing the current date, digital time, and the hour, minute, and second hands of the clock."""
     for element in elements:
         canvas.delete(element)
 
